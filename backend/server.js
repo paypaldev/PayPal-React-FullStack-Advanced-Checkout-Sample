@@ -6,9 +6,6 @@ const { PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET, PORT = 8888 } = process.env;
 const base = "https://api-m.sandbox.paypal.com";
 const app = express();
 
-// host static files
-app.use(express.static("client"));
-
 // parse post params sent in body in json format
 app.use(express.json());
 
@@ -37,6 +34,25 @@ const generateAccessToken = async () => {
   } catch (error) {
     console.error("Failed to generate Access Token:", error);
   }
+};
+
+/**
+ * Generate a client token for rendering the hosted card fields.
+ * @see https://developer.paypal.com/docs/checkout/advanced/integrate/#link-integratebackend
+ */
+const generateClientToken = async () => {
+  const accessToken = await generateAccessToken();
+  const url = `${base}/v1/identity/generate-token`;
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "Accept-Language": "en_US",
+      "Content-Type": "application/json",
+    },
+  });
+
+  return handleResponse(response);
 };
 
 /**
@@ -117,6 +133,16 @@ async function handleResponse(response) {
     throw new Error(errorMessage);
   }
 }
+
+// render checkout page with client id & unique client token
+app.post("/api/token", async (req, res) => {
+  try {
+    const { jsonResponse, httpStatusCode } = await generateClientToken();
+    res.status(httpStatusCode).json(jsonResponse);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+});
 
 app.post("/api/orders", async (req, res) => {
   try {
