@@ -1,0 +1,44 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.paypal {
+   margin: 8px 0;
+}
+
+.form {
+    width: 30%;
+}
+  
+.input{
+    padding: 12px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin: 8px 2px;
+    resize: vertical;
+    height: 40px;
+    background: white;
+    font-size: 14px;
+    color: #3a3a3a;
+    font-family: helvetica, tahoma, calibri, sans-serif;
+}
+
+button {
+    background-color: #000;
+    color: #fff;
+    font-size: 18px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    margin: 8px 0;
+}
+
+button:hover {
+    background-color: #222;
+}
+  
