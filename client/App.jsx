@@ -7,7 +7,7 @@ const App = () => {
 
   const initialOptions = {
     'client-id':
-      'PAYPAL_CLIENT_ID',
+      'ATcbsWeJib7eBUta2p5NaO64gvVFwIjJV2vEBu9wfP_ALWWiUtlxuo0OHxeCBsv807oldJyihRjS5AzR',
     'data-client-token': clientToken,
     components: 'hosted-fields,buttons',
     'enable-funding': 'paylater,venmo',

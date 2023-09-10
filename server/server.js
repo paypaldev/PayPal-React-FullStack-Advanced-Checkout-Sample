@@ -1,11 +1,13 @@
 import express from "express";
 import fetch from "node-fetch";
 import "dotenv/config";
+import path from "path";
 
 const { PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET, PORT = 8888 } = process.env;
 const base = "https://api-m.sandbox.paypal.com";
 const app = express();
 
+app.use(express.static("client/dist"));
 // parse post params sent in body in json format
 app.use(express.json());
 
@@ -133,6 +135,11 @@ async function handleResponse(response) {
     throw new Error(errorMessage);
   }
 }
+
+// serve index.html
+app.get("/", (req, res) => {
+  res.sendFile(path.resolve("./client/dist/index.html"));
+});
 
 // render checkout page with client id & unique client token
 app.post("/api/token", async (req, res) => {
