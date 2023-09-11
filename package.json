@@ -1,6 +1,6 @@
 {
-  "name": "ib-si-react",
-  "version": "0.1.0",
+  "name": "ib-ai-react",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "dependencies": {
