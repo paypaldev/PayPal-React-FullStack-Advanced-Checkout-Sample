@@ -141,13 +141,14 @@ app.get("/", (req, res) => {
   res.sendFile(path.resolve("./client/dist/index.html"));
 });
 
-// render checkout page with client id & unique client token
+// return client token for hosted-fields component
 app.post("/api/token", async (req, res) => {
   try {
     const { jsonResponse, httpStatusCode } = await generateClientToken();
     res.status(httpStatusCode).json(jsonResponse);
-  } catch (err) {
-    res.status(500).send(err.message);
+  } catch (error) {
+    console.error("Failed to generate client token:", error);
+    res.status(500).send({ error: "Failed to generate client token." });
   }
 });
 
